@@ -72,10 +72,29 @@ const deleteUser = async(req,res)=>{
     }
 }
 
+const updateUser = async(req,res)=>{
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ error: "Id is req." })
+    }
+    try {
+        const user = await User.update(req.body,{
+            where:{
+                id
+            }
+        });
+        res.status(201).json(user);
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 module.exports = {
     addUser,
     getUsers,
     getUser,
     deleteUsers,
-    deleteUser
+    deleteUser,
+    updateUser
 }

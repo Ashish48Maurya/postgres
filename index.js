@@ -1,5 +1,5 @@
 const express = require("express");
-const { addUser,getUsers, getUser, deleteUsers, deleteUser } = require("./src/crud-repo");
+const { addUser,getUsers, getUser, deleteUsers, deleteUser, updateUser } = require("./src/crud-repo");
 const app = express();
 
 app.use(express.json());
@@ -9,6 +9,7 @@ app.get("/user", getUsers)
 app.get("/user/:id", getUser)
 app.delete("/user", deleteUsers)
 app.delete("/user/:id", deleteUser)
+app.patch("/user/:id", updateUser)
 
 app.listen(3000, async () => {
     console.log("Server is running on port 3000");
