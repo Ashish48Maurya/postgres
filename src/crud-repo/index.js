@@ -41,8 +41,41 @@ const getUser = async (req, res) => {
     }
 }
 
+// https://sequelize.org/docs/v6/core-concepts/model-querying-basics/
+const deleteUsers = async(req,res)=>{
+    try {
+        await User.destroy({
+            where: {}
+        });
+        res.status(201).json({message: "Users Deleted"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+const deleteUser = async(req,res)=>{
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ error: "Id is req." })
+    }
+    try {
+        await User.destroy({
+            where:{
+                id
+            }
+        });
+        res.status(201).json({message: "User Deleted"});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 module.exports = {
     addUser,
     getUsers,
-    getUser
+    getUser,
+    deleteUsers,
+    deleteUser
 }
