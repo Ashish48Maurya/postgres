@@ -120,13 +120,17 @@ const createTodo = async (req, res) => {
     }
 };
 
+
+// https://sequelize.org/docs/v6/other-topics/scopes/#merging-includes
 const getAllTodos = async (req, res) => {
     try {
         const todos = await Todo.findAll({
             include: {
                 model: User,
                 as: 'user',
-                attributes: ['email'], // In order to include only specific user fields
+                attributes: {
+                    exclude: ['email'], // In order to Xclude only specific user fields
+                },
             },
         });
 
